@@ -1,6 +1,6 @@
 FROM golang:1.14-alpine as builder
 
-RUN apk add --no-cache make gcc musl-dev linux-headers git
+RUN apk add --no-cache make gcc musl-dev linux-headers git bash
 
 WORKDIR /go/go-corex
 COPY . .
@@ -21,9 +21,9 @@ RUN export GIT_COMMIT=$(git rev-list -1 HEAD) && \
 FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates
+ADD https://github.com/corex-mn/releases/raw/main/genesis/mainnet.g /genesis/mainnet.g
 
 COPY --from=builder /tmp/corex /
 
 EXPOSE 5050 18545 18546 18547 19090
 
-ENTRYPOINT ["/corex"]
