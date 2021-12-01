@@ -21,7 +21,9 @@ RUN export GIT_COMMIT=$(git rev-list -1 HEAD) && \
 FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates
+
 ADD https://github.com/corex-mn/releases/raw/main/genesis/mainnet.g /genesis/mainnet.g
+ADD https://github.com/corex-mn/releases/raw/main/genesis/testnet.g /genesis/testnet.g
 
 COPY --from=builder /tmp/corex /
 
